@@ -428,7 +428,9 @@ export function createServer() {
         if (!requestedPath.startsWith("/2026")) requestedPath = `/2026${requestedPath}`;
       }
       const page = officialData.pages.find(
-        (item) => item.path.replace(/\/$/, "") === requestedPath.replace(/\/$/, ""),
+        (item) =>
+          item.path.replace(/\/$/, "") === requestedPath.replace(/\/$/, "") ||
+          (!requestedPath.includes("?") && item.path.startsWith(`${requestedPath}?`)),
       );
       if (!page) {
         return {

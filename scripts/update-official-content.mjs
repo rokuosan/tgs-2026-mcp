@@ -2,6 +2,8 @@ import { mkdir, writeFile } from "node:fs/promises";
 
 const BASE_URL = "https://tgs.cesa.or.jp";
 const OUTPUT_PATH = "src/data/official-content.json";
+const MAX_PAGES = 60;
+const REQUEST_DELAY_MS = 500;
 const START_PATHS = [
   "/2026/",
   "/2026/30th",
@@ -12,20 +14,26 @@ const START_PATHS = [
   "/2026/caution",
   "/2026/contact",
   "/2026/cosplay_area",
+  "/2026/creator_lounge",
   "/2026/event",
   "/2026/faq",
   "/2026/fgp",
+  "/2026/fgp/viva",
   "/2026/food/",
   "/2026/goods",
   "/2026/indie",
+  "/2026/indie/si80/",
+  "/2026/indie/sown/",
   "/2026/influencer",
   "/2026/map",
   "/2026/news",
+  "/2026/news?page=2",
   "/2026/oversea",
   "/2026/press",
   "/2026/program",
   "/2026/sns",
   "/2026/ticket?public=true",
+  "/2026/ticket?business=true",
 ];
 
 const BLOCK_END = /<\/(?:h[1-6]|p|li|div|section|article|tr|dt|dd)>/gi;
@@ -76,7 +84,14 @@ export function extractPage(html, url) {
         .map((link) => `${link.pathname}${link.search}`),
     ),
   ];
-  return { title, url, path: new URL(url).pathname, content, links };
+  const parsedUrl = new URL(url);
+  return {
+    title,
+    url,
+    path: `${parsedUrl.pathname.replace(/\/$/, "") || "/"}${parsedUrl.search}`,
+    content,
+    links,
+  };
 }
 
 export function extractSchedule(content, type) {
@@ -113,7 +128,12 @@ export function extractSchedule(content, type) {
   return entries;
 }
 
-const shouldCrawl = (path) => /^\/2026\/news\/detail\/[\w-]+\/?$/.test(path);
+const shouldCrawl = (path) => {
+  const url = new URL(path, BASE_URL);
+  return /^\/2026\/news\/detail\/[\w-]+\/?$/.test(url.pathname);
+};
+
+const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 
 if (import.meta.main) {
   const pending = [...START_PATHS];
@@ -122,11 +142,19 @@ if (import.meta.main) {
 
   while (pending.length) {
     const path = pending.shift();
-    const url = new URL(path, BASE_URL).href;
+    const parsedUrl = new URL(path, BASE_URL);
+    parsedUrl.pathname = parsedUrl.pathname.replace(/\/$/, "") || "/";
+    const url = parsedUrl.href;
     if (seen.has(url)) continue;
+    if (pages.length >= MAX_PAGES) {
+      throw new Error(`Stopped after ${MAX_PAGES} pages to protect the official site`);
+    }
     seen.add(url);
 
-    const response = await fetch(url);
+    if (pages.length) await wait(REQUEST_DELAY_MS);
+    const response = await fetch(url, {
+      signal: AbortSignal.timeout(15_000),
+    });
     if (!response.ok) throw new Error(`Failed to fetch ${url}: ${response.status}`);
     const page = extractPage(await response.text(), url);
     pages.push(page);

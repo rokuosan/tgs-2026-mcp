@@ -13,6 +13,7 @@ test("extractPage keeps visible main content and internal links", () => {
     "https://tgs.cesa.or.jp/2026/about",
   );
   assert.equal(page.title, "案内");
+  assert.equal(page.path, "/2026/about");
   assert.match(page.content, /開催情報\n幕張メッセ\n開催/);
   assert.deepEqual(page.links, ["/2026/news"]);
 });

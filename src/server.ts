@@ -3,6 +3,7 @@ import * as z from "zod";
 
 import data from "./data/exhibitors.json" with { type: "json" };
 import foodData from "./data/food.json" with { type: "json" };
+import officialData from "./data/official-content.json" with { type: "json" };
 import xData from "./data/x-posts.json" with { type: "json" };
 
 const searchInput = z.object({
@@ -47,6 +48,21 @@ const foodInput = z.object({
   limit: z.int().min(1).max(100).default(20),
 });
 
+const officialInfoInput = z.object({
+  query: z.string().max(200).optional(),
+  path: z.string().max(100).optional(),
+  limit: z.int().min(1).max(50).default(10),
+});
+
+const officialPageInput = z.object({ path: z.string().min(1).max(200) });
+
+const scheduleInput = z.object({
+  query: z.string().max(100).optional(),
+  date: z.string().max(30).optional(),
+  type: z.enum(["event_stage", "official_program"]).optional(),
+  limit: z.int().min(1).max(100).default(20),
+});
+
 const normalize = (value: string) => value.trim().normalize("NFKC").toLocaleLowerCase("ja");
 const contains = (value: string | null, query: string | undefined) =>
   !query || normalize(value ?? "").includes(normalize(query));
@@ -81,6 +97,12 @@ const result = (value: object) => ({
   content: [{ type: "text" as const, text: JSON.stringify(value, null, 2) }],
   structuredContent: value,
 });
+const excerpt = (content: string, query: string | undefined) => {
+  const lines = content.split("\n");
+  if (!query) return lines.slice(0, 8).join("\n");
+  const matches = lines.filter((line) => contains(line, query));
+  return (matches.length ? matches : lines).slice(0, 5).join("\n");
+};
 
 export function createServer() {
   const server = new McpServer({ name: "tgs-2026-mcp", version: "0.1.0" });
@@ -330,6 +352,93 @@ export function createServer() {
         total: matches.length,
         sourceUrl: foodData.sourceUrl,
         updatedAt: foodData.updatedAt,
+      });
+    },
+  );
+
+  server.registerTool(
+    "search_schedule",
+    {
+      title: "Search TGS 2026 official schedule",
+      description: "Search official event stage and streaming program schedules.",
+      inputSchema: scheduleInput,
+      annotations: { readOnlyHint: true, idempotentHint: true },
+    },
+    async ({ query, date, type, limit }) => {
+      const matches = officialData.schedules.filter(
+        (item) =>
+          contains(item.title, query) && contains(item.date, date) && (!type || item.type === type),
+      );
+      const schedules = matches.slice(0, limit).map((item) => ({
+        ...item,
+        sourceUrl: `${officialData.sourceUrl}${item.type === "event_stage" ? "event" : "program"}`,
+      }));
+      return result({
+        schedules,
+        count: schedules.length,
+        total: matches.length,
+        updatedAt: officialData.updatedAt,
+      });
+    },
+  );
+
+  server.registerTool(
+    "search_official_info",
+    {
+      title: "Search TGS 2026 official information",
+      description:
+        "Search official visitor information, tickets, news, access, rules, special projects, and other TGS pages.",
+      inputSchema: officialInfoInput,
+      annotations: { readOnlyHint: true, idempotentHint: true },
+    },
+    async ({ query, path, limit }) => {
+      const matches = officialData.pages.filter(
+        (page) => contains(`${page.title} ${page.content}`, query) && contains(page.path, path),
+      );
+      const pages = matches.slice(0, limit).map((page) => ({
+        title: page.title,
+        path: page.path,
+        url: page.url,
+        excerpt: excerpt(page.content, query),
+      }));
+      return result({
+        pages,
+        count: pages.length,
+        total: matches.length,
+        sourceUrl: officialData.sourceUrl,
+        updatedAt: officialData.updatedAt,
+      });
+    },
+  );
+
+  server.registerTool(
+    "get_official_page",
+    {
+      title: "Get a TGS 2026 official information page",
+      description: "Get the full indexed content of an official TGS page by path or URL.",
+      inputSchema: officialPageInput,
+      annotations: { readOnlyHint: true, idempotentHint: true },
+    },
+    async ({ path }) => {
+      let requestedPath = path.trim();
+      try {
+        requestedPath = new URL(requestedPath).pathname;
+      } catch {
+        if (!requestedPath.startsWith("/")) requestedPath = `/${requestedPath}`;
+        if (!requestedPath.startsWith("/2026")) requestedPath = `/2026${requestedPath}`;
+      }
+      const page = officialData.pages.find(
+        (item) => item.path.replace(/\/$/, "") === requestedPath.replace(/\/$/, ""),
+      );
+      if (!page) {
+        return {
+          content: [{ type: "text" as const, text: `Official page ${path} was not found.` }],
+          isError: true,
+        };
+      }
+      return result({
+        page,
+        updatedAt: officialData.updatedAt,
       });
     },
   );

@@ -15,6 +15,8 @@ An unofficial MCP server for finding exhibitors and booth locations at TOKYO GAM
 Exhibitor results include X accounts found in the official exhibitor data and manually verified
 posts using `#TGS2026`, `#東京ゲームショウ30th`, or `#東京ゲームショウ2026`.
 X-derived novelty results include the source post URL and distribution conditions.
+Post details are verified during data curation with the keyless
+[FxTwitter API](https://docs.fxembed.com/api/); the MCP server does not call it at runtime.
 
 ## Requirements
 

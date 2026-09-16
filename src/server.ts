@@ -2,6 +2,7 @@ import { McpServer } from "@modelcontextprotocol/server";
 import * as z from "zod";
 
 import data from "./data/exhibitors.json" with { type: "json" };
+import foodData from "./data/food.json" with { type: "json" };
 import xData from "./data/x-posts.json" with { type: "json" };
 
 const searchInput = z.object({
@@ -37,6 +38,14 @@ const merchandiseInput = z.object({
 });
 
 const noveltyInput = merchandiseInput;
+
+const foodInput = z.object({
+  query: z.string().max(100).optional(),
+  vendor: z.string().max(100).optional(),
+  location: z.string().max(100).optional(),
+  maxPriceYen: z.int().min(0).optional(),
+  limit: z.int().min(1).max(100).default(20),
+});
 
 const normalize = (value: string) => value.trim().normalize("NFKC").toLocaleLowerCase("ja");
 const contains = (value: string | null, query: string | undefined) =>
@@ -291,6 +300,36 @@ export function createServer() {
         sourceUrl: data.sourceUrl,
         updatedAt: data.updatedAt,
         xSearchedAt: xData.searchedAt,
+      });
+    },
+  );
+
+  server.registerTool(
+    "search_food",
+    {
+      title: "Search TGS 2026 food",
+      description: "Search official food court menus by item, vendor, location, or price.",
+      inputSchema: foodInput,
+      annotations: { readOnlyHint: true, idempotentHint: true },
+    },
+    async ({ query, vendor, location, maxPriceYen, limit }) => {
+      const matches = foodData.items.filter(
+        (item) =>
+          contains(`${item.name} ${item.description}`, query) &&
+          contains(item.vendor, vendor) &&
+          contains(item.location, location) &&
+          (maxPriceYen === undefined || item.priceMinYen <= maxPriceYen),
+      );
+      const foods = matches.slice(0, limit).map((item) => ({
+        ...item,
+        hours: foodData.locations.find((location) => location.name === item.location)?.hours ?? [],
+      }));
+      return result({
+        foods,
+        count: foods.length,
+        total: matches.length,
+        sourceUrl: foodData.sourceUrl,
+        updatedAt: foodData.updatedAt,
       });
     },
   );

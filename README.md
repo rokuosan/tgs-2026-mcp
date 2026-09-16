@@ -11,6 +11,7 @@ An unofficial MCP server for finding exhibitors and booth locations at TOKYO GAM
 - `search_events`: Search booth events by name, date, or exhibitor.
 - `search_merchandise`: Search merchandise listed by exhibitors.
 - `search_novelties`: Search official descriptions for giveaways and visitor benefits.
+- `search_food`: Search official food court menus by item, vendor, location, or price.
 
 Exhibitor results include X accounts found in the official exhibitor data and manually verified
 posts using `#TGS2026`, `#東京ゲームショウ30th`, or `#東京ゲームショウ2026`.

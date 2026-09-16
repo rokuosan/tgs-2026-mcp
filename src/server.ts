@@ -1,25 +1,18 @@
 import { McpServer } from "@modelcontextprotocol/server";
-import { toStandardJsonSchema } from "@valibot/to-json-schema";
-import * as v from "valibot";
+import * as z from "zod";
 
 import data from "./data/exhibitors.json" with { type: "json" };
 
-const searchInput = toStandardJsonSchema(
-  v.object({
-    query: v.optional(v.pipe(v.string(), v.maxLength(100))),
-    hall: v.optional(v.pipe(v.string(), v.maxLength(30))),
-    area: v.optional(v.pipe(v.string(), v.maxLength(100))),
-    limit: v.optional(v.pipe(v.number(), v.integer(), v.minValue(1), v.maxValue(100)), 20),
-  }),
-);
+const searchInput = z.object({
+  query: z.string().max(100).optional(),
+  hall: z.string().max(30).optional(),
+  area: z.string().max(100).optional(),
+  limit: z.int().min(1).max(100).default(20),
+});
 
-const idInput = toStandardJsonSchema(
-  v.object({ id: v.pipe(v.string(), v.minLength(1), v.maxLength(20)) }),
-);
+const idInput = z.object({ id: z.string().min(1).max(20) });
 
-const boothInput = toStandardJsonSchema(
-  v.object({ boothNumber: v.pipe(v.string(), v.minLength(1), v.maxLength(30)) }),
-);
+const boothInput = z.object({ boothNumber: z.string().min(1).max(30) });
 
 const normalize = (value: string) => value.trim().normalize("NFKC").toLocaleLowerCase("ja");
 const result = (value: object) => ({

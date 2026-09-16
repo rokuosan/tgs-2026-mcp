@@ -12,11 +12,9 @@ An unofficial MCP server for finding exhibitors and booth locations at TOKYO GAM
 - `search_merchandise`: Search merchandise listed by exhibitors.
 - `search_novelties`: Search official descriptions for giveaways and visitor benefits.
 
-Exhibitor results include X accounts when the official exhibitor data contains a matching X URL.
-
-## Roadmap
-
-- [ ] Find additional official accounts from `#TGS2026` posts and exhibitor or title names, then attach source post URLs and concrete novelty details.
+Exhibitor results include X accounts found in the official exhibitor data and manually verified
+posts using `#TGS2026`, `#東京ゲームショウ30th`, or `#東京ゲームショウ2026`.
+X-derived novelty results include the source post URL and distribution conditions.
 
 ## Requirements
 

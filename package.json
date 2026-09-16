@@ -10,7 +10,9 @@
     "format": "oxfmt --write .",
     "format:check": "oxfmt --check .",
     "test": "node --test",
-    "data:update": "node scripts/update-exhibitors.mjs",
+    "data:update": "pnpm data:update:exhibitors && pnpm data:update:official",
+    "data:update:exhibitors": "node scripts/update-exhibitors.mjs",
+    "data:update:official": "node scripts/update-official-content.mjs",
     "types": "wrangler types"
   },
   "dependencies": {

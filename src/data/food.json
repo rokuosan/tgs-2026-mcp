@@ -1,0 +1,246 @@
+{
+  "sourceUrl": "https://tgs.cesa.or.jp/2026/food/",
+  "updatedAt": "2026-09-17",
+  "locations": [
+    {
+      "name": "4〜6ホール南屋外フードコート",
+      "hours": [
+        "9月17日（木）10:00〜16:30（L.O 16:00）",
+        "9月18日（金）10:00〜16:30（L.O 16:00）",
+        "9月19日（土）10:00〜16:30（L.O 16:00）",
+        "9月20日（日）10:00〜16:30（L.O 16:00）",
+        "9月21日（月）10:00〜14:00（L.O 13:30）"
+      ]
+    },
+    {
+      "name": "9ホール南屋外フードコート",
+      "hours": [
+        "9月17日（木）10:00〜16:30（L.O 16:00）",
+        "9月18日（金）10:00〜16:30（L.O 16:00）",
+        "9月19日（土）10:00〜16:30（L.O 16:00）",
+        "9月20日（日）10:00〜16:30（L.O 16:00）",
+        "9月21日（月）10:00〜15:30（L.O 15:00）"
+      ]
+    },
+    {
+      "name": "ファミリーゲームパークフードコート",
+      "hours": [
+        "9月19日（土）10:00〜16:30（L.O 16:00）",
+        "9月20日（日）10:00〜16:30（L.O 16:00）",
+        "9月21日（月）10:00〜16:00（L.O 15:30）"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "vendor": "ビフテキダイナマイト",
+      "name": "プレミアム3ビフテキ丼",
+      "priceMinYen": 3000,
+      "priceMaxYen": 3000,
+      "priceLabel": "3,000円（税込）",
+      "description": "米国産黒毛牛チャックアイ、和牛上ロースのステーキ、USサガリのローストビーフを盛り付けた3種盛りビフテキ丼。キユーピーのたまごを在庫限り無料トッピング。",
+      "location": "4〜6ホール南屋外フードコート",
+      "availability": null
+    },
+    {
+      "vendor": "沖縄料理MARINE",
+      "name": "ソーキ30%増量 沖縄そば",
+      "priceMinYen": 1400,
+      "priceMaxYen": 1400,
+      "priceLabel": "1,400円（税込）",
+      "description": "じっくり煮込んだソーキ肉を通常より30％増量したTGS30限定沖縄そば。",
+      "location": "4〜6ホール南屋外フードコート",
+      "availability": null
+    },
+    {
+      "vendor": "舟倉亭",
+      "name": "スタミナ牛カルビ3倍丼",
+      "priceMinYen": 1300,
+      "priceMaxYen": 1300,
+      "priceLabel": "1,300円（税込）",
+      "description": "人気のスタミナ牛カルビ丼をカルビ3倍増しにした30 BOOST FOOD限定メニュー。",
+      "location": "4〜6ホール南屋外フードコート",
+      "availability": null
+    },
+    {
+      "vendor": "そば Labo at 弁天",
+      "name": "さんまるたこ焼き",
+      "priceMinYen": 3000,
+      "priceMaxYen": 3000,
+      "priceLabel": "3,000円（税込）",
+      "description": "揚げたこ焼きを30個盛り付けた限定メニュー。",
+      "location": "4〜6ホール南屋外フードコート",
+      "availability": null
+    },
+    {
+      "vendor": "NAZR",
+      "name": "肉30％増し チーズステーキサンド",
+      "priceMinYen": 1400,
+      "priceMaxYen": 1400,
+      "priceLabel": "1,400円（税込）",
+      "description": "ステーキ肉を通常より30％増量し、とろけるチーズを合わせた限定サンド。",
+      "location": "4〜6ホール南屋外フードコート",
+      "availability": null
+    },
+    {
+      "vendor": "千葉果実堂総本店",
+      "name": "練乳レベル30 けずりいちご",
+      "priceMinYen": 700,
+      "priceMaxYen": 700,
+      "priceLabel": "700円（税込）",
+      "description": "けずりいちごの練乳を通常20gから30gへ増量した限定メニュー。",
+      "location": "4〜6ホール南屋外フードコート",
+      "availability": null
+    },
+    {
+      "vendor": "SUNNYDAY",
+      "name": "3種類盛りステーキ丼",
+      "priceMinYen": 3000,
+      "priceMaxYen": 3000,
+      "priceLabel": "3,000円（税込）",
+      "description": "ガリバタ、牛タン、ポークの3種を一度に味わえるステーキ丼。",
+      "location": "9ホール南屋外フードコート",
+      "availability": null
+    },
+    {
+      "vendor": "ピンクブーブー",
+      "name": "特大一本角煮ととろろ丼30%増量",
+      "priceMinYen": 1600,
+      "priceMaxYen": 1600,
+      "priceLabel": "1,600円（税込）",
+      "description": "肉を30％増量し、角煮を一本丸ごと盛り付けたとろろ丼。",
+      "location": "9ホール南屋外フードコート",
+      "availability": null
+    },
+    {
+      "vendor": "勝升KACHIMASU",
+      "name": "牛とろかつと3重たれかつの夢の特合盛り重",
+      "priceMinYen": 1800,
+      "priceMaxYen": 1800,
+      "priceLabel": "1,800円（税込）",
+      "description": "牛とろかつのハーフと特製たれかつ3重を合わせた特製合盛り重。",
+      "location": "9ホール南屋外フードコート",
+      "availability": null
+    },
+    {
+      "vendor": "BELIEVER IN BURGER",
+      "name": "トリプルチーズバーガー",
+      "priceMinYen": 2300,
+      "priceMaxYen": 2300,
+      "priceLabel": "2,300円（税込）",
+      "description": "国産牛100％パティを3枚重ねた限定バーガー。",
+      "location": "9ホール南屋外フードコート",
+      "availability": null
+    },
+    {
+      "vendor": "千葉うまかっぺ屋",
+      "name": "3玉ランダムメガ団子",
+      "priceMinYen": 800,
+      "priceMaxYen": 800,
+      "priceLabel": "800円（税込）",
+      "description": "味と色がランダムで提供される3玉のスペシャルメガ団子。",
+      "location": "9ホール南屋外フードコート",
+      "availability": null
+    },
+    {
+      "vendor": "エリジエス",
+      "name": "ケバブ肉を30％増量した30周年メガケバブ",
+      "priceMinYen": 1200,
+      "priceMaxYen": 1200,
+      "priceLabel": "1,200円（税込）",
+      "description": "チキンを通常より約30％増量したメガケバブサンド。",
+      "location": "9ホール南屋外フードコート",
+      "availability": "30個限定"
+    },
+    {
+      "vendor": "成田ゆめ牧場",
+      "name": "ジェラートトリプル盛り",
+      "priceMinYen": 750,
+      "priceMaxYen": 750,
+      "priceLabel": "750円（税込）",
+      "description": "3種類のフレーバーを一度に味わえる限定トリプルジェラート。",
+      "location": "ファミリーゲームパークフードコート",
+      "availability": "9月19日（土）・9月20日（日）のみ"
+    },
+    {
+      "vendor": "ヒロファーム",
+      "name": "削りいちご（いちご30%増量/満足度30%UP）",
+      "priceMinYen": 700,
+      "priceMaxYen": 700,
+      "priceLabel": "700円（税込）",
+      "description": "完熟いちごを30％増量した削りいちご。",
+      "location": "ファミリーゲームパークフードコート",
+      "availability": "9月21日（月・祝）のみ"
+    },
+    {
+      "vendor": "Spice.Lunch.Labo",
+      "name": "30%増量 コンボ盛りナチョス",
+      "priceMinYen": 800,
+      "priceMaxYen": 800,
+      "priceLabel": "800円（税込）",
+      "description": "ナチョスを30％増量し、チーズや具材を合わせた限定メニュー。",
+      "location": "ファミリーゲームパークフードコート",
+      "availability": null
+    },
+    {
+      "vendor": "Like",
+      "name": "30cmソーセージロングドッグ ブラジリアンホットドッグ",
+      "priceMinYen": 900,
+      "priceMaxYen": 2000,
+      "priceLabel": "900〜2,000円（税込）",
+      "description": "長さ30cmのロングドッグ。8種類のブラジリアンスタイルから選択可能。",
+      "location": "ファミリーゲームパークフードコート",
+      "availability": null
+    },
+    {
+      "vendor": "OUTBACK DINER",
+      "name": "30%増量 メガチキンカツライス",
+      "priceMinYen": 1200,
+      "priceMaxYen": 1200,
+      "priceLabel": "1,200円（税込）",
+      "description": "チキンカツを通常より30％増量し、濃厚チーズを合わせたメガサイズの一皿。",
+      "location": "ファミリーゲームパークフードコート",
+      "availability": null
+    },
+    {
+      "vendor": "D＆S catering world",
+      "name": "肉30%アップ ケバブ",
+      "priceMinYen": 1000,
+      "priceMaxYen": 1000,
+      "priceLabel": "1,000円（税込）",
+      "description": "香ばしく焼き上げた肉を30％増量した限定ケバブ。",
+      "location": "ファミリーゲームパークフードコート",
+      "availability": null
+    },
+    {
+      "vendor": "Baran",
+      "name": "バナナチョコホイップクレープ（ホイップ3倍）",
+      "priceMinYen": 1100,
+      "priceMaxYen": 1100,
+      "priceLabel": "1,100円（税込）",
+      "description": "ホイップクリームを通常の3倍使用した限定クレープ。",
+      "location": "ファミリーゲームパークフードコート",
+      "availability": null
+    },
+    {
+      "vendor": "龍球商店",
+      "name": "30周年記念！三種の神豚スペシャル 沖縄塩焼きそば",
+      "priceMinYen": 1300,
+      "priceMaxYen": 1300,
+      "priceLabel": "1,300円（税込）",
+      "description": "自家製ソーキ、ローストポーク、豚バラの3種を盛り付けた沖縄塩焼きそば。",
+      "location": "ファミリーゲームパークフードコート",
+      "availability": "9月19日（土）・9月20日（日）のみ"
+    },
+    {
+      "vendor": "栄屋",
+      "name": "横手やきそば（麺30％増し）",
+      "priceMinYen": 850,
+      "priceMaxYen": 850,
+      "priceLabel": "850円（税込）",
+      "description": "もちもち麺を30％増量した横手やきそば。",
+      "location": "ファミリーゲームパークフードコート",
+      "availability": "9月21日（月・祝）のみ"
+    }
+  ]
+}

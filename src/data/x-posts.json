@@ -1,0 +1,82 @@
+{
+  "searchedAt": "2026-09-17T00:00:00+09:00",
+  "officialHashtags": ["#TGS2026", "#東京ゲームショウ30th"],
+  "additionalHashtags": ["#東京ゲームショウ2026"],
+  "posts": [
+    {
+      "id": "2098683053602476229",
+      "url": "https://x.com/ariablue_/status/2098683053602476229",
+      "publishedAt": "2026-09-12",
+      "author": {
+        "name": "ARIA BLUE【公式】",
+        "handle": "@ariablue_",
+        "url": "https://x.com/ariablue_"
+      },
+      "exhibitorIds": ["16289"],
+      "novelty": {
+        "description": "ティザービジュアルのポストカードとステッカー3種セット",
+        "conditions": "ポストカードは来場者に配布。ステッカー3種セットは公式アカウントの固定ポストをリポストした人に配布。"
+      }
+    },
+    {
+      "id": "2100243810680999958",
+      "url": "https://x.com/ExertionGame/status/2100243810680999958",
+      "publishedAt": "2026-09-17",
+      "author": {
+        "name": "ExertionGame",
+        "handle": "@ExertionGame",
+        "url": "https://x.com/ExertionGame"
+      },
+      "exhibitorIds": ["16289"],
+      "novelty": {
+        "description": "『ダンジョンアーティファクト』特製ステッカー",
+        "conditions": "公式アカウントをフォローし、対象ポストをリポスト。"
+      }
+    },
+    {
+      "id": "2100238286522642778",
+      "url": "https://x.com/OneorEightINC/status/2100238286522642778",
+      "publishedAt": "2026-09-17",
+      "author": {
+        "name": "株式会社ワンオアエイト",
+        "handle": "@OneorEightINC",
+        "url": "https://x.com/OneorEightINC"
+      },
+      "exhibitorIds": ["16207"],
+      "novelty": {
+        "description": "プラチナファンクラブ会員証「GOLD」",
+        "conditions": "公式アカウントをフォローし、対象ポストをリポストして、その画面をスタッフに提示。"
+      }
+    },
+    {
+      "id": "2099785297110474777",
+      "url": "https://x.com/PuzzMao/status/2099785297110474777",
+      "publishedAt": "2026-09-15",
+      "author": {
+        "name": "パズまお",
+        "handle": "@PuzzMao",
+        "url": "https://x.com/PuzzMao"
+      },
+      "exhibitorIds": ["16046"],
+      "novelty": {
+        "description": "『パズまお』ポケットティッシュ",
+        "conditions": "シリアルゲームズブースに立ち寄った人に無料配布。"
+      }
+    },
+    {
+      "id": "2100210593945022678",
+      "url": "https://x.com/YuGiOh_OCG_INFO/status/2100210593945022678",
+      "publishedAt": "2026-09-17",
+      "author": {
+        "name": "【公式】遊戯王OCG",
+        "handle": "@YuGiOh_OCG_INFO",
+        "url": "https://x.com/YuGiOh_OCG_INFO"
+      },
+      "exhibitorIds": ["16032"],
+      "novelty": {
+        "description": "「遊戯王 TAG FORCE」トークンカード4種と「遊戯王 TAG FORCE GX」ステッカーセット",
+        "conditions": "『遊戯王 TAG FORCE GX』を予約した人にブースで配布。詳細な注意事項は投稿画像を確認。"
+      }
+    }
+  ]
+}

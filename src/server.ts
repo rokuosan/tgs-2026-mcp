@@ -2,6 +2,7 @@ import { McpServer } from "@modelcontextprotocol/server";
 import * as z from "zod";
 
 import data from "./data/exhibitors.json" with { type: "json" };
+import xData from "./data/x-posts.json" with { type: "json" };
 
 const searchInput = z.object({
   query: z.string().max(100).optional(),
@@ -40,6 +41,18 @@ const noveltyInput = merchandiseInput;
 const normalize = (value: string) => value.trim().normalize("NFKC").toLocaleLowerCase("ja");
 const contains = (value: string | null, query: string | undefined) =>
   !query || normalize(value ?? "").includes(normalize(query));
+const xPostsByExhibitor = Map.groupBy(xData.posts, (post) => post.exhibitorIds[0]);
+const getXAccounts = (exhibitor: (typeof data.exhibitors)[number]) => [
+  ...new Map(
+    [
+      ...exhibitor.xAccounts.map((account) => ({ ...account, sourceUrl: data.sourceUrl })),
+      ...(xPostsByExhibitor.get(exhibitor.id) ?? []).map((post) => ({
+        ...post.author,
+        sourceUrl: post.url,
+      })),
+    ].map((account) => [account.handle.toLocaleLowerCase("en"), account]),
+  ).values(),
+];
 const summarize = (exhibitor: (typeof data.exhibitors)[number]) => ({
   id: exhibitor.id,
   name: exhibitor.name,
@@ -48,7 +61,12 @@ const summarize = (exhibitor: (typeof data.exhibitors)[number]) => ({
   hall: exhibitor.hall,
   area: exhibitor.area,
   url: exhibitor.url,
-  xAccounts: exhibitor.xAccounts,
+  xAccounts: getXAccounts(exhibitor),
+});
+const detail = (exhibitor: (typeof data.exhibitors)[number]) => ({
+  ...exhibitor,
+  xAccounts: getXAccounts(exhibitor),
+  xPosts: xPostsByExhibitor.get(exhibitor.id) ?? [],
 });
 const result = (value: object) => ({
   content: [{ type: "text" as const, text: JSON.stringify(value, null, 2) }],
@@ -107,7 +125,11 @@ export function createServer() {
           isError: true,
         };
       }
-      return result({ exhibitor, sourceUrl: data.sourceUrl, updatedAt: data.updatedAt });
+      return result({
+        exhibitor: detail(exhibitor),
+        sourceUrl: data.sourceUrl,
+        updatedAt: data.updatedAt,
+      });
     },
   );
 
@@ -230,21 +252,45 @@ export function createServer() {
       annotations: { readOnlyHint: true, idempotentHint: true },
     },
     async ({ query, exhibitor, limit }) => {
-      const matches = data.exhibitors
-        .flatMap((owner) =>
-          owner.novelties.map((description) => ({ description, exhibitor: summarize(owner) })),
-        )
-        .filter(
-          (item) =>
-            contains(item.description, query) &&
-            contains(`${item.exhibitor.name} ${item.exhibitor.nameEn}`, exhibitor),
-        );
+      const officialSiteNovelties = data.exhibitors.flatMap((owner) =>
+        owner.novelties.map((description) => ({
+          description,
+          conditions: null,
+          source: "official_site",
+          sourceUrl: data.sourceUrl,
+          publishedAt: data.updatedAt,
+          exhibitor: summarize(owner),
+        })),
+      );
+      const xNovelties = xData.posts.flatMap((post) =>
+        post.exhibitorIds.flatMap((exhibitorId) => {
+          const owner = data.exhibitors.find((exhibitor) => exhibitor.id === exhibitorId);
+          return owner
+            ? [
+                {
+                  ...post.novelty,
+                  source: "x",
+                  sourceUrl: post.url,
+                  publishedAt: post.publishedAt,
+                  xAccount: post.author,
+                  exhibitor: summarize(owner),
+                },
+              ]
+            : [];
+        }),
+      );
+      const matches = [...officialSiteNovelties, ...xNovelties].filter(
+        (item) =>
+          contains(`${item.description} ${item.conditions ?? ""}`, query) &&
+          contains(`${item.exhibitor.name} ${item.exhibitor.nameEn}`, exhibitor),
+      );
       return result({
         novelties: matches.slice(0, limit),
         count: Math.min(matches.length, limit),
         total: matches.length,
         sourceUrl: data.sourceUrl,
         updatedAt: data.updatedAt,
+        xSearchedAt: xData.searchedAt,
       });
     },
   );
